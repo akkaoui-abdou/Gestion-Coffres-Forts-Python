@@ -1,4 +1,52 @@
-# Gestion de Coffres-Forts en Python
+# Exercice : Gestion de coffres-forts bancaires
+
+## Contexte
+
+Une banque dispose de plusieurs coffres-forts destinés au stockage d'actifs physiques. Chaque coffre possède une capacité maximale de stockage exprimée en kilogrammes. Le système doit être capable de gérer différents types d'actifs, chacun ayant un poids spécifique, tout en garantissant qu'aucun coffre ne dépasse sa capacité autorisée.
+
+## Types d'actifs
+
+Les actifs pouvant être stockés sont les suivants :
+
+| Type d'actif    | Poids |
+| --------------- | ----- |
+| Espèce          | 1 kg  |
+| Lingot d'argent | 2 kg  |
+| Lingot d'or     | 3 kg  |
+
+## Travail demandé
+
+Développer une application permettant de :
+
+1. Modéliser une banque contenant plusieurs coffres-forts.
+2. Associer à chaque coffre une capacité maximale de stockage.
+3. Stocker des actifs dans les coffres en respectant leur capacité disponible.
+4. Calculer et afficher la capacité restante de chaque coffre après les opérations de stockage.
+
+## Scénario à implémenter
+
+1. Créer une banque contenant **trois coffres-forts** de capacités :
+
+   * Coffre n°1 : 25 kg
+   * Coffre n°2 : 15 kg
+   * Coffre n°3 : 10 kg
+
+2. Dans le coffre n°2 (15 kg), stocker :
+
+   * 1 lingot d'or
+   * 1 lingot d'argent
+   * 1 espèce
+
+3. Dans le coffre n°3 (10 kg), tenter de stocker :
+
+   * 4 lingots d'or
+
+4. Afficher la capacité résiduelle de chacun des trois coffres après l'ensemble des opérations.
+
+## Résultat attendu
+
+Le programme doit indiquer la capacité restante de chaque coffre en tenant compte des actifs effectivement stockés et des éventuelles contraintes de capacité.
+
 
 ## Description
 
