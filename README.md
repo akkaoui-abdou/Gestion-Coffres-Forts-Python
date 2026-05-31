@@ -377,5 +377,100 @@ où `n` représente le nombre d'actifs présents dans le coffre.
 * Permettre le retrait d'actifs.
 * Gérer plusieurs types de métaux précieux.
 * Sauvegarder les données dans un fichier JSON.
+
+
+Voici une solution simple en Python orientée objet :
+
+```python
+# Définition des actifs
+class Actif:
+    def __init__(self, poids):
+        self.poids = poids
+
+
+class Espece(Actif):
+    def __init__(self):
+        super().__init__(1)
+
+
+class LingotArgent(Actif):
+    def __init__(self):
+        super().__init__(2)
+
+
+class LingotOr(Actif):
+    def __init__(self):
+        super().__init__(3)
+
+
+# Définition d'un coffre
+class Coffre:
+    def __init__(self, capacite_max):
+        self.capacite_max = capacite_max
+        self.actifs = []
+
+    def poids_occupe(self):
+        return sum(actif.poids for actif in self.actifs)
+
+    def capacite_residuelle(self):
+        return self.capacite_max - self.poids_occupe()
+
+    def stocker(self, actif):
+        if self.capacite_residuelle() >= actif.poids:
+            self.actifs.append(actif)
+            return True
+        return False
+
+
+# Définition de la banque
+class Banque:
+    def __init__(self):
+        self.coffres = []
+
+    def ajouter_coffre(self, coffre):
+        self.coffres.append(coffre)
+
+
+# Création de la banque et des coffres
+banque = Banque()
+
+coffre1 = Coffre(25)
+coffre2 = Coffre(15)
+coffre3 = Coffre(10)
+
+banque.ajouter_coffre(coffre1)
+banque.ajouter_coffre(coffre2)
+banque.ajouter_coffre(coffre3)
+
+# Stocker 1 lingot d'or, 1 lingot d'argent et 1 espèce dans le 2e coffre
+coffre2.stocker(LingotOr())      # 3
+coffre2.stocker(LingotArgent())  # 2
+coffre2.stocker(Espece())        # 1
+
+# Stocker 4 lingots d'or dans le 3e coffre
+for _ in range(4):
+    coffre3.stocker(LingotOr())  # 4 × 3 = 12 (> 10)
+
+# Affichage des capacités résiduelles
+for i, coffre in enumerate(banque.coffres, start=1):
+    print(f"Coffre {i} : {coffre.capacite_residuelle()} kg restants")
+```
+
+### Résultat
+
+* Coffre 1 (25 kg) : rien stocké → **25 kg restants**
+* Coffre 2 (15 kg) : 1 or (3) + 1 argent (2) + 1 espèce (1) = 6 kg → **9 kg restants**
+* Coffre 3 (10 kg) : seuls **3 lingots d'or** peuvent être stockés (9 kg), le 4ᵉ est refusé → **1 kg restant**
+
+Affichage :
+
+```text
+Coffre 1 : 25 kg restants
+Coffre 2 : 9 kg restants
+Coffre 3 : 1 kg restants
+```
+
+Si l'exercice attend simplement un calcul sans gérer les dépassements de capacité, alors le dernier coffre aurait une capacité résiduelle de `10 - 12 = -2`, mais dans un système de gestion réaliste il est préférable d'empêcher le stockage lorsque la capacité est dépassée.
+
 * Ajouter des tests unitaires avec `pytest`.
 * Afficher le contenu détaillé de chaque coffre.
